@@ -1,45 +1,54 @@
 <template>
-  <div>
-    <div class="row">
-      <div class="col s12 m4 offset-m1">
-        <Field
-          @fieldChange="updateField($event)"
-        >
-        </Field>
-      </div>
-      <div class="col s12 m5 offset-m1">
-        <Monster
-          :field="setting.field"
-          @monsterChange="updateMonsterForms($event)"
-        >
-        </Monster>
-      </div>
-    </div>
-    <div class="btn"
-      @click="submitData"
-    >clal</div>
+  <div class="row grey lighten-2 main-forms" >
+    
+    <!-- modal -->
+    <MyModal @close="closeModal" v-if="modal" :running="running" :result="result">
+    </MyModal>
+
+
+    <Field
+      @fieldChange="updateField($event)"
+      @turnsChange="updateTurns($event)"
+      @timesChange="updateTimes($event)"
+      @runCalculate="submitData"
+    >
+    </Field>
+
+    <Monster
+      class="monster-forms"
+      :field="setting.field"
+      @monsterChange="updateMonsterForms($event)"
+    >
+    </Monster>
+
   </div>
 </template>
 
 <script>
 import Field from './field'
 import Monster from './monster'
+import MyModal from './resultmodal'
 import axios from 'axios'
 import qs from 'qs'
 
 export default {
   components: {
     Field,
-    Monster
+    Monster,
+    MyModal
   },
   data: function() {
     return {
       setting: {
         field: [],
         monsterForms: [],
-        turns: 1000,
-        times: 10
-      }
+        turns: "",
+        times: "",
+      },
+      modal: false,
+      message: "",
+      running: true,
+      result: {},
     }
   },
   methods: {
@@ -55,7 +64,20 @@ export default {
         this.setting.monsterForms[i] = Object.assign({}, monsterForms[i]);
       }
     },
-    submitData: function(e) {
+    updateTurns: function(turns) {
+      this.setting.turns = turns;
+    },
+    updateTimes: function(times) {
+      this.setting.times = times;
+    },
+    submitData: function() {
+      var message = this.monsterFormsValidation();
+      if (message != "") {
+        alert(message);
+        return
+      }
+      
+      this.openModal();
       var setting = this.formatSetting();
       // axios.get('/api/calcs', {
       //   params: {
@@ -70,10 +92,11 @@ export default {
       // }
       axios.post('/api/calcs', setting)
       .then((response) => {
-        console.log(response);
-        console.log("done");
+        this.result = response.data;
+        this.running = false;
       }, (error) => {
-        console.log('failed');
+        alert("なんか失敗した");
+        this.running = false;
       });
     },
     formatSetting: function() {
@@ -107,11 +130,72 @@ export default {
       setting.times = Number(this.setting.times)
       setting.turns = Number(this.setting.turns)
       return setting
-    }
+    },
+    monsterFormsValidation: function() {
+      var orderArray = new Array();
+      var orderFlag = false;
+      var lvFlag = false;
+      var dopingFlag = false;
+      var field = this.setting.field;
+      var positionFlag = false;
+      var message = "";
+
+      this.setting.monsterForms.forEach(function(monster, index) {
+        if (!monster.join || !monster.friend) {
+          return
+        }
+
+        if (orderArray.includes(Number(monster.order)) && !orderFlag) {
+          message += "行動順が重複しています\n";
+          orderFlag = !orderFlag;
+        }
+        orderArray.push(Number(monster.order));
+
+        if (!monster.lv.match(/[1-9]|[1-9][0-9]/) && !lvFlag) {
+          message += "Lvは1から99を入力してください\n";
+          lvFlag = !lvFlag;
+        }
+
+        if (!monster.doping.match(/\d{1,}/) && !dopingFlag) {
+          message += "ドーピングは数値を入力してください\n";
+          dopingFlag = !dopingFlag;
+        }
+
+        var position = monster.position.split(',');
+        if (!field[Number(position[0])][Number(position[1])] && !positionFlag) {
+          message += "位置が不正です\n"
+          positionFlag = !positionFlag;
+        }
+      })
+      return message.trim();
+    },
+    openModal() {
+      this.modal = true
+    },
+    closeModal() {
+      this.modal = false;
+      this.running = true;
+    },
   },
 }
 </script>
 
-<style>
+<style scoped>
+.main-forms {
+  height: 100vh;
+  margin-bottom: 0;
+}
+.monster-forms {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 20px; 
+}
+/* .field-body {
+  height: 500px;
+} */
+/* .monster-body {
+  height: 50vh;
+} */
 
 </style>

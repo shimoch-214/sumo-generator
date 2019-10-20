@@ -1,117 +1,117 @@
 <template>
-  <div>
-    <h2>Monsters</h2>
-      <table class="striped" style="font-size: 0.8rem">
-        <thead>
-          <tr>
-            <th class="tribe-width">種族</th>
-            <th class="select-width">行動順</th>
-            <th class="input-width">Lv</th>
-            <th class="input-width">位置</th>
-            <th class="input-width">ドープ</th>
-            <th class="select-width">弱化</th>
-            <th class="btn-width">倍速</th>
-            <th class="btn-width">封印</th>
-            <th class="btn-width">装備</th>
-            <th class="btn-width">参加</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="monsterForm in monsterForms"
-            :key="monsterForm.id"
-            :id="'monsForm'+monsterForm.id"
-            :class="(monsterForm.friend)? '': 'red lighten-3'"
-          >
-            <!-- 種族 -->
-            <td>
-              <SumoSelect
-                v-model="monsterForm.tribe"
-                name="tribe"
-                :options="tribes"
-                :friend="monsterForm.friend"
-              ></SumoSelect>
-            </td>
-            <!-- 行動順 -->
-            <td>
-              <SumoSelect
-                v-model="monsterForm.order"
-                name="order"
-                :options="orders"
-                :friend="monsterForm.friend"
-              ></SumoSelect>
-            </td>
-            <!-- lv -->
-            <td>
-              <SumoInput
-                v-model="monsterForm.lv"
-                name="lv"
-                placeholder="1~99"
-                :friend="monsterForm.friend"
-              ></SumoInput>
-            </td>
-            <!-- position -->
-            <td>
-              <SumoInput
-                v-model="monsterForm.position"
-                name="position"
-                placeholder="m,n"
-                :friend="monsterForm.friend"
-                @change="setMonster($event)"
-              ></SumoInput>
-            </td>
-            <!-- doping -->
-            <td>
-              <SumoInput
-                v-model="monsterForm.doping"
-                name="doping"
-                :friend="monsterForm.friend"
-              ></SumoInput>
-            </td>
-            <!-- weaken -->
-            <td>
-              <SumoSelect
-                v-model="monsterForm.weaken"
-                name="weaken"
-                :options="weakens"
-                :friend="monsterForm.friend"
-              ></SumoSelect>
-            </td>
-            <!-- speed -->
-            <td>
-              <SumoCheckbox
-                v-model="monsterForm.speed"
-                name="speed"
-                :friend="monsterForm.friend"
-              ></SumoCheckbox>
-            </td>
-            <!-- sealed -->
-            <td>
-              <SumoCheckbox
-                v-model="monsterForm.sealed"
-                name="sealed"
-                :friend="monsterForm.friend"
-              ></SumoCheckbox>
-            </td>
-            <!-- strip -->
-            <td>
-              <SumoCheckbox
-                v-model="monsterForm.strip"
-                name="strip"
-                :friend="monsterForm.friend"
-              ></SumoCheckbox>
-            </td>
-            <!-- 参加 -->
-            <td>
-              <SumoCheckbox
-                v-model="monsterForm.join"
-                name="join"
-                :friend="monsterForm.friend"
-              ></SumoCheckbox>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="row grey lighten-1 forms-updown">
+    <nav class="grey lighten-1 waves-effect waves-light" @click="toggleCtrlPanel">
+      <div class="nav-wrapper">
+          <div class="col s12 m10 offset-m1">
+            <span class="brand-logo black-text">Monsters</span>
+          </div>
+      </div>
+    </nav>
+    <transition name="slide" appear>
+      <div class="col s12" v-show="!isPanelShown">
+        <table class="striped" style="font-size: 0.8rem">
+          <thead>
+            <tr>
+              <th class="tribe-width">種族</th>
+              <th class="select-width">行動順</th>
+              <th class="input-width">Lv</th>
+              <th class="input-width">位置</th>
+              <th class="input-width">ドープ</th>
+              <th class="select-width">弱化</th>
+              <th class="btn-width">倍速</th>
+              <th class="btn-width">封印</th>
+              <th class="btn-width">装備</th>
+              <th class="btn-width">参加</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="monsterForm in monsterForms"
+              :key="monsterForm.id"
+              :id="'monsForm'+monsterForm.id"
+              :class="(monsterForm.friend)? '': 'red lighten-3'"
+            >
+              <td class="tribe-width">
+                <SumoSelect
+                  v-model="monsterForm.tribe"
+                  name="tribe"
+                  :options="tribes"
+                  :friend="monsterForm.friend"
+                ></SumoSelect>
+              </td>
+              <td class="select-width">
+                <SumoSelect
+                  v-model="monsterForm.order"
+                  name="order"
+                  :options="orders"
+                  :friend="monsterForm.friend"
+                ></SumoSelect>
+              </td>
+              <td class="input-width">
+                <SumoInput
+                  v-model="monsterForm.lv"
+                  name="lv"
+                  placeholder="1~99"
+                  :friend="monsterForm.friend"
+                ></SumoInput>
+              </td>
+              <td class="input-width">
+                <SumoInput
+                  v-model="monsterForm.position"
+                  name="position"
+                  placeholder="m,n"
+                  :friend="monsterForm.friend"
+                  @change="setMonster($event)"
+                ></SumoInput>
+              </td>
+              <td class="input-width">
+                <SumoInput
+                  v-model="monsterForm.doping"
+                  name="doping"
+                  :friend="monsterForm.friend"
+                ></SumoInput>
+              </td>
+              <td class="select-width">
+                <SumoSelect
+                  v-model="monsterForm.weaken"
+                  name="weaken"
+                  :options="weakens"
+                  :friend="monsterForm.friend"
+                ></SumoSelect>
+              </td>
+              <td class="btn-width">
+                <SumoCheckbox
+                  v-model="monsterForm.speed"
+                  name="speed"
+                  :friend="monsterForm.friend"
+                ></SumoCheckbox>
+              </td>
+              <td class="btn-width">
+                <SumoCheckbox
+                  v-model="monsterForm.sealed"
+                  name="sealed"
+                  :friend="monsterForm.friend"
+                ></SumoCheckbox>
+              </td>
+              <td class="btn-width">
+                <SumoCheckbox
+                  v-model="monsterForm.strip"
+                  name="strip"
+                  :friend="monsterForm.friend"
+                ></SumoCheckbox>
+              </td>
+              <td class="btn-width">
+                <SumoCheckbox
+                  v-model="monsterForm.join"
+                  name="join"
+                  :friend="monsterForm.friend"
+                ></SumoCheckbox>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -120,6 +120,7 @@ import Vue from 'vue/dist/vue.esm.js'
 import SumoInput from './forms/sumoinput'
 import SumoCheckbox from './forms/sumocheckbox'
 import SumoSelect from './forms/sumoselect'
+
 
 
 export default {
@@ -317,7 +318,8 @@ export default {
         { value: 7, label: "7回"},
         { value: 8, label: "8回"},
         { value: 9, label: "9回"},
-      ]
+      ],
+      isPanelShown: false,
     }
   },
   methods: {
@@ -329,6 +331,20 @@ export default {
     setMonster: function(params) {
       var val = params[0];
       var parentId = params[1];
+      var rows = this.field.length;
+      var cols = this.field[0].length;
+      var row = val.split(',')[0]
+      var col = val.split(',')[1]
+      var tribe = document.querySelector(`#${parentId} select[name="tribe"]`).value
+      if (tribe == "") {
+        tribe = "seed";
+      }
+      var order = Number(document.querySelector(`#${parentId} select[name="order"]`).value)+1
+      var target = document.querySelector(`#${tribe}${order}`);
+      if (target) {
+        target.parentNode.removeChild(target);
+      }
+
       if (val == "") {
         return
       }
@@ -338,10 +354,7 @@ export default {
         this.positionClear(parentId);
         return
       }
-      var rows = this.field.length;
-      var cols = this.field[0].length;
-      var row = val.split(',')[0]
-      var col = val.split(',')[1]
+
       // field[row][col]が空じゃないとだめ
       if (row < 1 || col < 1 || row > rows-2 || col > cols-2) {
         alert("壁際には配置できません")
@@ -356,11 +369,24 @@ export default {
         this.positionClear(parentId);
         return
       }
-      var tribe = document.querySelector(`#${parentId} select[name="tribe"]`).value
-      var order = Number(document.querySelector(`#${parentId} select[name="order"]`).value)+1
-
-      document.querySelector(`#r${row}c${col}`).append(`${tribe}${order}`)
+      var html = this.buildMonsterName(tribe, order);
+      document.querySelector(`#r${row}c${col}`).insertAdjacentHTML('beforeend', html);
     },
+    buildMonsterName: function(tribe, order) {
+      if (tribe == 'km') {
+        var html = `<p id="${tribe}${order}" style="font-size: 1.5rem;">機${order}</p>`;
+      } else if (tribe == 'ho') {
+        var html = `<p id="${tribe}${order}" style="font-size: 1.5rem;">ホ${order}</p>`;
+      } else if (tribe == 'su') {
+        var html = `<p id="${tribe}${order}" style="font-size: 1.5rem;">ス${order}</p>`;
+      } else if (tribe == 'seed') {
+        var html = `<p id="${tribe}${order}" style="font-size: 1.5rem;">種</p>`;
+      }
+      return html
+    },
+    toggleCtrlPanel: function() {
+      this.isPanelShown = !this.isPanelShown
+    }
   },
   watch: {
     monsterForms: {
@@ -375,14 +401,15 @@ export default {
 </script>
 
 <style scoped>
-tr {
-  padding: 0;
-  margin: 0;
-}
 td {
   padding: 0 5px;
   margin: 0;
+} 
+th {
+  padding: 15px 5px;
+  margin: 0;
 }
+
 .input-width {
   width: 13%;
 }
@@ -396,7 +423,44 @@ td {
   width: 20%;
 }
 .input-field {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0;
+  padding: 0;
 }
+
+tbody {
+  display: block;
+  height: 250px;
+  overflow-y: scroll;
+}
+thead, tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+thead {
+  height: 50px;
+  width: calc(100% - 1em);
+} 
+table {
+  width: 100%;
+}
+
+.forms-updown {
+  width: calc(100% - 300px);
+}
+
+
+.slide-enter-active, .slide-leave-active {
+    transition: .5s;
+    opacity: 1;
+    height: 300px;
+
+    /* transition: height 300px; */
+}
+.slide-enter, .slide-leave-to {
+    opacity: 0;
+    height: 0;
+}
+
 </style>
+

@@ -1,28 +1,47 @@
 <template>
-  <div>
-    <h2>Field</h2>
-    <div class="row valign-wrapper">
-      <div class="input-field col s4"> 
-        <input type="text" id="rows" :value="field.rows" placeholder="1~20">
-        <label for="rows">行数</label>
+  <div class="row">
+    <nav class="grey lighten-2">
+      <div class="nav-wrapper">
+        <div class="col s12 m10 offset-m1">
+          <span class="brand-logo black-text">Field</span>
+        </div>
       </div>
-      <div class="input-field col s4">
-        <input type="text" id="cols" :value="field.cols" placeholder="1~20">
-        <label for="cols">列数</label>
+    </nav>
+    <div class="col s10 offset-s1" style="padding-top: 20px;">
+      <div id="field" class="col s12 m8">
+        <!-- ボタン押したらここにfieldが挿入される -->
+        <Cell
+          :fieldData="fieldData"
+          @updateField="updateField($event)"
+        ></Cell>
       </div>
-      <div class="btn waves-effect waves-light col s4"
-        @click="createField">
-        作成
+      <div class="col s12 m4">
+        <!-- <div class="input-field"> 
+          <input type="text" id="rows" :value="fieldData.rows" placeholder="1~20">
+          <label for="rows">Rows</label>
+        </div>
+        <div class="input-field">
+          <input type="text" id="cols" :value="fieldData.cols" placeholder="1~20">
+          <label for="cols">Cols</label>
+        </div> -->
+        <!-- <div class="btn waves-effect waves-light"
+          @click="createField">
+          Reset
+        </div> -->
+        <div class="input-field">
+          <input type="text" id="cols" v-model="turns" placeholder="1~20">
+          <label for="cols">Turns</label>
+        </div>
+        <div class="input-field">
+          <input type="text" id="cols" v-model="times" placeholder="1~20">
+          <label for="cols">Times</label>
+        </div>
+        <div class="btn" @click="submitData">
+          Simulate!!
+        </div>
       </div>
     </div>
-    <div id="field">
-      <!-- ボタン押したらここにfieldが挿入される -->
-      <Cell
-        :field="field"
-        @updatePosition="updatePosition($event)"
-      ></Cell>
-    </div>
-  </div>   
+  </div>
 </template>
 
 <script>
@@ -36,17 +55,19 @@ export default {
   },
   data: function() {
     return {
-      field: {
-        rows: 10,
-        cols: 10,
+      fieldData: {
+        rows: 12,
+        cols: 12,
       },
-      position: []
+      field: [],
+      turns: "1000",
+      times: "100",
     }
   },
   methods: {
     createField: function(e) {
-      var oldRows = Number(this.field.rows);
-      var oldCols = Number(this.field.cols);
+      var oldRows = Number(this.fieldData.rows);
+      var oldCols = Number(this.fieldData.cols);
       var newRows = Number(document.querySelector('#rows').value);
       var newCols = Number(document.querySelector('#cols').value);
       if (oldRows == newRows && oldCols == newCols) {
@@ -60,36 +81,45 @@ export default {
         return
       }
 
-      this.field.rows = newRows;
-      this.field.cols = newCols;
-      this.initializePosition();
+      this.fieldData.rows = newRows;
+      this.fieldData.cols = newCols;
+      this.initializeField();
     },
-    initializePosition: function() {
-      this.position = new Array(this.field.rows);
-      for(var i=0; i < this.field.rows; i++) {
-        this.position[i] = new Array(this.field.cols).fill(0);
+    initializeField: function() {
+      this.field = new Array(this.fieldData.rows);
+      for(var i=0; i < this.fieldData.rows; i++) {
+        this.field[i] = new Array(this.fieldData.cols).fill(0);
       }
     },
-    updatePosition: function(position) {
-      this.position = Array.from(position);
-      // console.log(this.position);
+    updateField: function(field) {
+      this.field = Array.from(field);
+    },
+    submitData: function(e) {
+      this.$emit('runCalculate')
     }
   },
   mounted: function() {
-    this.initializePosition();
+    this.initializeField();
+    this.$emit('turnsChange', this.turns)
+    this.$emit('timesChange', this.times)
   },
   watch: {
-    position: {
+    field: {
       handler: function(val) {
         this.$emit('fieldChange', val)
       },
       deep: true,
       immediate: true
+    },
+    turns: function(val) {
+      this.$emit('turnsChange', val)
+    },
+    times: function(val) {
+      this.$emit('timesChange', val)
     }
   }
 }
 </script>
 
 <style>
-
 </style>

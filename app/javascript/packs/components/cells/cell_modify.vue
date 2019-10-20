@@ -2,14 +2,14 @@
   <div>
     <div
       class="fieldrow"
-      v-for="row in field.rows"
+      v-for="row in fieldData.rows"
       :key="row"
     >
       <div
         class="cells wall"
         @contextmenu="dblexchangeImage"
         @click="exchangeImage"
-        v-for="col in field.cols"
+        v-for="col in fieldData.cols"
         :key="col"
         :id="'r'+(row-1)+'c'+(col-1)"
         :style="style"
@@ -26,7 +26,7 @@
 export default {
   name: 'Cell',
   props: {
-    field: {
+    fieldData: {
       rows: { type: Number, required: true },
       cols: { type: Number, required: true },
     },
@@ -35,7 +35,7 @@ export default {
     return {
       cellLength: 0,
       style: "",
-      editedPosition: [],
+      editedField: [],
       oldField: {}
     }
   },
@@ -51,24 +51,24 @@ export default {
       var row = Number(elId[0]);
       var col = Number(elId[1]);
 
-      if(row == 0 || row == this.field.rows-1){
+      if(row == 0 || row == this.fieldData.rows-1){
         return
       }
-      if(col == 0 || col == this.field.cols-1){
+      if(col == 0 || col == this.fieldData.cols-1){
         return
       }
 
       if (elClass.contains("wall")) {
         elClass.remove("wall");
         elClass.add("empty");
-        this.editedPosition[row][col] = 1;
+        this.editedField[row][col] = 1;
       } else {
         elClass.remove("empty");
         elClass.add("wall");
-        this.editedPosition[row][col] = 0;
+        this.editedField[row][col] = 0;
       }
 
-      this.emitPosition();
+      this.emitField();
     },
     dblexchangeImage: function(e) {
       e.preventDefault();
@@ -83,10 +83,10 @@ export default {
       var row = Number(elId[0]);
       var col = Number(elId[1]);
 
-      if(row == 0 || row == this.field.rows-1){
+      if(row == 0 || row == this.fieldData.rows-1){
         return
       }
-      if(col == 0 || col == this.field.cols-1){
+      if(col == 0 || col == this.fieldData.cols-1){
         return
       }
 
@@ -99,30 +99,31 @@ export default {
       }
 
       for (var i = -1; i < 2; i++) {
-        if (row+i == 0 || row+i == this.field.rows-1) {
+        if (row+i == 0 || row+i == this.fieldData.rows-1) {
           continue;
         }
         for (var j = -1; j < 2; j++) {
-          if (col+j == 0 || col+j == this.field.cols-1) {
+          if (col+j == 0 || col+j == this.fieldData.cols-1) {
             continue;
           } else {
             document.querySelector(`#r${row+i}c${col+j}`).classList.remove(fromClass);
             document.querySelector(`#r${row+i}c${col+j}`).classList.add(toClass);
             if (toClass == "wall") {
-              this.editedPosition[row+i][col+j] = 0;
+              this.editedField[row+i][col+j] = 0;
             } else {
-              this.editedPosition[row+i][col+j] = 1;
+              this.editedField[row+i][col+j] = 1;
             }
           }
         }
       }
-      this.emitPosition();
+      this.emitField();
     },
-    emitPosition: function() {
-      this.$emit('updatePosition', this.editedPosition)
+    emitField: function() {
+      this.$emit('updateField', this.editedField)
     },
     getComponentSize: function() {
-      this.cellLength = Math.floor(this.$el.clientWidth/this.field.cols);
+      var width = this.$el.clientWidth;
+      this.cellLength = Math.floor(width/this.fieldData.cols)
       this.setStyle();
     },
     setStyle: function() {
@@ -132,28 +133,28 @@ export default {
         line-height: ${this.cellLength}px;
       `
     },
-    getEditedPosition: function() {
-      this.editedPosition = new Array(this.field.rows);
-      for(var i=0; i < this.field.rows; i++) {
-        this.editedPosition[i] = new Array(this.field.cols).fill(0);
+    geteditedField: function() {
+      this.editedField = new Array(this.fieldData.rows);
+      for(var i=0; i < this.fieldData.rows; i++) {
+        this.editedField[i] = new Array(this.fieldData.cols).fill(0);
       }
     }
   },
   updated: function() {
     this.$nextTick(function(){
-      if (this.field.rows == this.oldField.rows && this.field.cols == this.oldField.cols) {
+      if (this.fieldData.rows == this.oldField.rows && this.fieldData.cols == this.oldField.cols) {
         return
       } 
 
       // フラグの初期化
-      this.getEditedPosition();
+      this.geteditedField();
 
       // cellサイズの変更
       this.getComponentSize();
 
       // cell背景の初期化
-      for (var i=0; i<this.field.rows; i++) {
-        for (var j=0; j<this.field.cols; j++) {
+      for (var i=0; i<this.fieldData.rows; i++) {
+        for (var j=0; j<this.fieldData.cols; j++) {
           var classes = document.querySelector(`#r${i}c${j}`).classList
           if (classes.contains("empty")) {
             classes.remove("empty");
@@ -163,14 +164,14 @@ export default {
       }
 
       // oldFieldの初期化
-      this.oldField = Object.assign({}, this.field);
+      this.oldField = Object.assign({}, this.fieldData);
     })
   },
   mounted: function() {
     // フラグの初期化
-    this.getEditedPosition()
+    this.geteditedField()
     // oldFieldの初期化
-    this.oldField = Object.assign({}, this.field);
+    this.oldField = Object.assign({}, this.fieldData);
     // cellLengthの初期化
     this.getComponentSize();
     // 画面リサイズをリスナーに登録

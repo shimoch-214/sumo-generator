@@ -69,7 +69,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'haml-rails', '~> 1.0.0'
 
 # materialize
-gem 'materialize-sass', '~> 1.0.0'
+gem 'materialize-sass'
 gem 'material_icons'
 gem 'jquery-rails'
 
