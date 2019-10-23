@@ -14,7 +14,7 @@ set :rails_env, "production"
 set :unicorn_rack_env, "production"
 
 # どのリポジトリからアプリをpullするかを指定する
-set :repo_url,  'https://github.com/shimoch-214/sumo_generator.git'
+set :repo_url,  'https://github.com/shimoch-214/sumo-generator.git'
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 # set :branch, 'automatic-deploy'
 
@@ -23,7 +23,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # set :linked_files, %w{ config/master.key }
 set :linked_files, fetch(:linked_files, []).push('config/master.key')
 set :rbenv_type, :user
-set :rbenv_ruby, '2.5.1' #カリキュラム通りに進めた場合、2.5.1か2.3.1です
+set :rbenv_ruby, '2.6.3' #カリキュラム通りに進めた場合、2.5.1か2.3.1です
 
 # どの公開鍵を利用してデプロイするか
 set :ssh_options, auth_methods: ['publickey'],
@@ -58,3 +58,4 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
   
 end
+
