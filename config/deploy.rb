@@ -53,15 +53,15 @@ namespace :deploy do
     end
   end
 
-  desc 'npm run build'
-  after 'deploy:updated', :build do
-    on roles :all do
-      within current_path do
-        execute :npm, 'install'
-        execute :npm, 'run', 'build'
-      end
-    end
-  end
+  # desc 'npm run build'
+  # after 'deploy:updated', :build do
+  #   on roles :all do
+  #     within current_path do
+  #       execute :npm, 'install'
+  #       execute :npm, 'run', 'build'
+  #     end
+  #   end
+  # end
 
 
   before :starting, 'deploy:upload'
