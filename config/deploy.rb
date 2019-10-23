@@ -38,6 +38,7 @@ set :keep_releases, 5
 
 # デプロイ処理が終わった後、Unicornを再起動するための記述
 after 'deploy:publishing', 'deploy:restart'
+
 namespace :deploy do
   task :restart do
     invoke 'unicorn:restart'
@@ -52,17 +53,6 @@ namespace :deploy do
       upload!('config/master.key', "#{shared_path}/config/master.key")
     end
   end
-
-  # desc 'npm run build'
-  # after 'deploy:updated', :build do
-  #   on roles :all do
-  #     within current_path do
-  #       execute :npm, 'install'
-  #       execute :npm, 'run', 'build'
-  #     end
-  #   end
-  # end
-
 
   before :starting, 'deploy:upload'
   after :finishing, 'deploy:cleanup'
