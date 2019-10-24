@@ -3,7 +3,7 @@
     <nav class="grey lighten-2">
       <div class="nav-wrapper">
         <div class="col s12 m10 offset-m1">
-          <span class="brand-logo black-text">Field</span>
+          <span class="brand-logo black-text">TEST</span>
         </div>
       </div>
     </nav>
