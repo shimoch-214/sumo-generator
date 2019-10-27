@@ -1,71 +1,45 @@
-:scss
-  .sumo-main {
-    padding-left: 300px;
-  }
-
-  @media only screen and (max-width : 992px) {
-    .sumo-main {
-      padding-left: 0;
-    }
-  }
-
-  .sidenav .collapsible>.active .collapsible-header .chevron {
-        transform: rotate(-90deg);
-  }
-
-  .sidenav {
-    li {
-      a {
-        color: white;
-      }
-    }
-  }
-  .test {
-    padding: 0 16px;
-  }
-
-%ul#slide-out.sidenav.sidenav-fixed.blue-grey.darken-3{ style: "transform: translateX(0%);"}
-  %li
-    .logo-wrapper
-      %a.brand-logo{ href: "#" }
-        .backgroud
-          = image_tag "sample.png", size: '300x200'
-  %li
-    .divider
-  %li
-    %a{ href: "#"} About
-  %li
-    %a{ href: "#"} How to use
-  %li
-    %ul.collapsible.collapsible-accordion
-      %li
-        %a.collapsible-header.waves-effect.waves-light
-          %span{style: 'padding: 16px;'} Dropdown
-          %i.material-icons.chevron.right.white-text chevron_left
-        .collapsible-body.blue-grey.darken-3
-          %ul
-            %li
-              %a{ href: "#" } 
-                %span{style: 'padding: 16px;'} First
-            %li
-              %a{ href: "#" }
-                %span{style: 'padding: 16px;'} Second
-            %li
-              %a{ href: "#" }
-                %span{style: 'padding: 16px;'} Third
+-# %ul#slide-out.sidenav.sidenav-fixed.blue-grey.darken-3{ style: "transform: translateX(0%);"}
+  -# %li
+  -#   .logo-wrapper
+  -#     %a.brand-logo{ href: "#" }
+  -#       .backgroud
+  -#         = image_tag "sample.png", size: '300x200'
+  -# %li
+  -#   .divider
+  -# %li
+  -#   %a{ href: "#"} About
+  -# %li
+  -#   %a{ href: "#"} How to use
+  -# %li
+  -#   %ul.collapsible.collapsible-accordion
+  -#     %li
+  -#       %a.collapsible-header.waves-effect.waves-light
+  -#         %span{style: 'padding: 16px;'} Dropdown
+  -#         %i.material-icons.chevron.right.white-text chevron_left
+  -#       .collapsible-body.blue-grey.darken-3
+  -#         %ul
+  -#           %li
+  -#             %a{ href: "#" } 
+  -#               %span{style: 'padding: 16px;'} First
+  -#           %li
+  -#             %a{ href: "#" }
+  -#               %span{style: 'padding: 16px;'} Second
+  -#           %li
+  -#             %a{ href: "#" }
+  -#               %span{style: 'padding: 16px;'} Third
 #app 
   .sumo-main
     %calculate
 
 = javascript_pack_tag 'sumocom'
 
-:javascript
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init(elems, {});
-    var collapsibleElem = document.querySelector('.collapsible');
-    var collapsibleInstance = M.Collapsible.init(collapsibleElem, { accordion: true});
-  });
+-# :javascript
+-#   document.addEventListener('DOMContentLoaded', function() {
+-#     var elems = document.querySelectorAll('.sidenav');
+-#     var instances = M.Sidenav.init(elems, {});
+-#     var collapsibleElem = document.querySelector('.collapsible');
+-#     var collapsibleInstance = M.Collapsible.init(collapsibleElem, { accordion: true});
+-#   });
 
 
 

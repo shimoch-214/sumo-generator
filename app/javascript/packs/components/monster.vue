@@ -32,12 +32,13 @@
               :class="(monsterForm.friend)? '': 'red lighten-3'"
             >
               <td class="tribe-width">
-                <SumoSelect
+                <TribeSelect
                   v-model="monsterForm.tribe"
                   name="tribe"
                   :options="tribes"
                   :friend="monsterForm.friend"
-                ></SumoSelect>
+                  @change="changeName($event)"
+                ></TribeSelect>
               </td>
               <td class="select-width">
                 <SumoSelect
@@ -48,28 +49,26 @@
                 ></SumoSelect>
               </td>
               <td class="input-width">
-                <SumoInput
+                <LvInput
                   v-model="monsterForm.lv"
                   name="lv"
-                  placeholder="1~99"
                   :friend="monsterForm.friend"
-                ></SumoInput>
+                ></LvInput>
               </td>
               <td class="input-width">
-                <SumoInput
-                  v-model="monsterForm.position"
+                <PositionInput
+                  :value="monsterForm.position"
                   name="position"
-                  placeholder="m,n"
                   :friend="monsterForm.friend"
                   @change="setMonster($event)"
-                ></SumoInput>
+                ></PositionInput>
               </td>
               <td class="input-width">
-                <SumoInput
+                <DopeInput
                   v-model="monsterForm.doping"
                   name="doping"
                   :friend="monsterForm.friend"
-                ></SumoInput>
+                ></DopeInput>
               </td>
               <td class="select-width">
                 <SumoSelect
@@ -117,16 +116,22 @@
 
 <script>
 import Vue from 'vue/dist/vue.esm.js'
-import SumoInput from './forms/sumoinput'
+import LvInput from './forms/lvinput'
+import PositionInput from './forms/positioninput'
+import DopeInput from './forms/dopeinput'
 import SumoCheckbox from './forms/sumocheckbox'
+import TribeSelect from './forms/tribeselect'
 import SumoSelect from './forms/sumoselect'
 
 
 
 export default {
   components: {
-    SumoInput,
+    LvInput,
+    PositionInput,
+    DopeInput,
     SumoCheckbox,
+    TribeSelect,
     SumoSelect,
   },
   props: {
@@ -336,15 +341,11 @@ export default {
       var row = val.split(',')[0]
       var col = val.split(',')[1]
       var tribe = document.querySelector(`#${parentId} select[name="tribe"]`).value
-      if (tribe == "") {
-        tribe = "seed";
-      }
       var order = Number(document.querySelector(`#${parentId} select[name="order"]`).value)+1
       var target = document.querySelector(`#${tribe}${order}`);
       if (target) {
         target.parentNode.removeChild(target);
       }
-
       if (val == "") {
         return
       }
@@ -354,7 +355,6 @@ export default {
         this.positionClear(parentId);
         return
       }
-
       // field[row][col]が空じゃないとだめ
       if (row < 1 || col < 1 || row > rows-2 || col > cols-2) {
         alert("壁際には配置できません")
@@ -371,6 +371,21 @@ export default {
       }
       var html = this.buildMonsterName(tribe, order);
       document.querySelector(`#r${row}c${col}`).insertAdjacentHTML('beforeend', html);
+    },
+    changeName: function(params) {
+      var val = params[0];
+      var parentId = params[1];
+      var position = document.querySelector(`#${parentId} input[name="position"]`).value
+      var order = Number(document.querySelector(`#${parentId} select[name="order"]`).value)+1
+      if (position == "") {
+        return;
+      }
+      var row = position.split(',')[0]
+      var col = position.split(',')[1]
+      var html = this.buildMonsterName(val, order)
+      var target = document.querySelector(`#r${row}c${col}`)
+      target.removeChild(target.lastChild)
+      target.insertAdjacentHTML('beforeend', html)
     },
     buildMonsterName: function(tribe, order) {
       if (tribe == 'km') {
@@ -446,7 +461,7 @@ table {
 }
 
 .forms-updown {
-  width: calc(100% - 300px);
+  width: calc(100%);
 }
 
 

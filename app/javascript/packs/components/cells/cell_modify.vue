@@ -2,14 +2,14 @@
   <div>
     <div
       class="fieldrow"
-      v-for="row in fieldData.rows"
+      v-for="row in 12"
       :key="row"
     >
       <div
         class="cells wall"
         @contextmenu="dblexchangeImage"
         @click="exchangeImage"
-        v-for="col in fieldData.cols"
+        v-for="col in 12"
         :key="col"
         :id="'r'+(row-1)+'c'+(col-1)"
         :style="style"
@@ -26,10 +26,6 @@
 export default {
   name: 'Cell',
   props: {
-    fieldData: {
-      rows: { type: Number, required: true },
-      cols: { type: Number, required: true },
-    },
   },
   data: function(){
     return {
@@ -51,10 +47,10 @@ export default {
       var row = Number(elId[0]);
       var col = Number(elId[1]);
 
-      if(row == 0 || row == this.fieldData.rows-1){
+      if(row == 0 || row == 11){
         return
       }
-      if(col == 0 || col == this.fieldData.cols-1){
+      if(col == 0 || col == 11){
         return
       }
 
@@ -83,10 +79,10 @@ export default {
       var row = Number(elId[0]);
       var col = Number(elId[1]);
 
-      if(row == 0 || row == this.fieldData.rows-1){
+      if(row == 0 || row == 11){
         return
       }
-      if(col == 0 || col == this.fieldData.cols-1){
+      if(col == 0 || col == 11){
         return
       }
 
@@ -99,11 +95,11 @@ export default {
       }
 
       for (var i = -1; i < 2; i++) {
-        if (row+i == 0 || row+i == this.fieldData.rows-1) {
+        if (row+i == 0 || row+i == 11) {
           continue;
         }
         for (var j = -1; j < 2; j++) {
-          if (col+j == 0 || col+j == this.fieldData.cols-1) {
+          if (col+j == 0 || col+j == 11) {
             continue;
           } else {
             document.querySelector(`#r${row+i}c${col+j}`).classList.remove(fromClass);
@@ -123,7 +119,7 @@ export default {
     },
     getComponentSize: function() {
       var width = this.$el.clientWidth;
-      this.cellLength = Math.floor(width/this.fieldData.cols)
+      this.cellLength = Math.floor(width/12)
       this.setStyle();
     },
     setStyle: function() {
@@ -134,27 +130,23 @@ export default {
       `
     },
     geteditedField: function() {
-      this.editedField = new Array(this.fieldData.rows);
-      for(var i=0; i < this.fieldData.rows; i++) {
-        this.editedField[i] = new Array(this.fieldData.cols).fill(0);
+      this.editedField = new Array(12);
+      for(var i=0; i < 12; i++) {
+        this.editedField[i] = new Array(12).fill(0);
       }
     }
   },
   updated: function() {
     this.$nextTick(function(){
-      if (this.fieldData.rows == this.oldField.rows && this.fieldData.cols == this.oldField.cols) {
-        return
-      } 
 
       // フラグの初期化
       this.geteditedField();
-
-      // cellサイズの変更
+      // サイズの取得
       this.getComponentSize();
 
       // cell背景の初期化
-      for (var i=0; i<this.fieldData.rows; i++) {
-        for (var j=0; j<this.fieldData.cols; j++) {
+      for (var i=0; i<12; i++) {
+        for (var j=0; j<12; j++) {
           var classes = document.querySelector(`#r${i}c${j}`).classList
           if (classes.contains("empty")) {
             classes.remove("empty");
@@ -162,19 +154,11 @@ export default {
           }
         }
       }
-
-      // oldFieldの初期化
-      this.oldField = Object.assign({}, this.fieldData);
     })
   },
   mounted: function() {
-    // フラグの初期化
-    this.geteditedField()
-    // oldFieldの初期化
-    this.oldField = Object.assign({}, this.fieldData);
-    // cellLengthの初期化
+    this.geteditedField();
     this.getComponentSize();
-    // 画面リサイズをリスナーに登録
     window.addEventListener('resize', this.getComponentSize);
   }
 }

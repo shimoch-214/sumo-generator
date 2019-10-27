@@ -151,16 +151,6 @@ export default {
         }
         orderArray.push(Number(monster.order));
 
-        if (!monster.lv.match(/[1-9]|[1-9][0-9]/) && !lvFlag) {
-          message += "Lvは1から99を入力してください\n";
-          lvFlag = !lvFlag;
-        }
-
-        if (!monster.doping.match(/\d{1,}/) && !dopingFlag) {
-          message += "ドーピングは数値を入力してください\n";
-          dopingFlag = !dopingFlag;
-        }
-
         var position = monster.position.split(',');
         if (!field[Number(position[0])][Number(position[1])] && !positionFlag) {
           message += "位置が不正です\n"
@@ -191,11 +181,4 @@ export default {
   margin-bottom: 0;
   padding-bottom: 20px; 
 }
-/* .field-body {
-  height: 500px;
-} */
-/* .monster-body {
-  height: 50vh;
-} */
-
 </style>
