@@ -39,19 +39,19 @@
           <div class="collapsible-body blue-grey darken-3">
             <ul>
               <li>
-                <a href="#">
+                <router-link to="/calculate">
                   <span style="padding: 16px;">3 on 3</span>
-                </a>
+                </router-link>
               </li>
               <li>
-                <a href="#">
+                <router-link to="/calculate">
                   <span style="padding: 16px;">3 on 3 double</span>
-                </a>
+                </router-link>
               </li>
               <li>
-                <a href="#">
+                <router-link to="/calculate">
                   <span style="padding: 16px;">5 on 5 double</span>
-                </a>
+                </router-link>
               </li>
             </ul>
           </div>

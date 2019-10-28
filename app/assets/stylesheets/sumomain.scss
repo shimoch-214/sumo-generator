@@ -22,6 +22,7 @@
 }
 
 .content-main {
+  // padding-top: 40px !important;
   font-family: Arial;
   &__title {
     letter-spacing: 0.05em;
@@ -32,4 +33,7 @@
   p {
     letter-spacing: 0.03em;
   }
+}
+.how-to-image {
+  width: 100%;
 }

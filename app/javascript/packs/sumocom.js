@@ -12,5 +12,11 @@ var app = new Vue({
   components: {
     'sidenav': SideNav
   },
+  watch: {
+    '$route': function(to, from) {
+      console.log(to)
+      console.log(from)
+    }
+  }
 })
 

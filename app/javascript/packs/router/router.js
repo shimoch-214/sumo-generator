@@ -12,5 +12,5 @@ export default new VueRouter ({
     { path: '/', component: Home },
     { path: '/how_to', component: HowTo },
     { path: '/calculate', component: Calculate }
-  ]
+  ],
 })
