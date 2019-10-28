@@ -3,7 +3,7 @@
     <nav class="grey lighten-1 waves-effect waves-light" @click="toggleCtrlPanel">
       <div class="nav-wrapper">
           <div class="col s12 m10 offset-m1">
-            <span class="brand-logo black-text">Monsters</span>
+            <span class="brand-logo black-text">settings</span>
           </div>
       </div>
     </nav>
@@ -57,7 +57,7 @@
               </td>
               <td class="input-width">
                 <PositionInput
-                  :value="monsterForm.position"
+                  v-model="monsterForm.position"
                   name="position"
                   :friend="monsterForm.friend"
                   @change="setMonster($event)"

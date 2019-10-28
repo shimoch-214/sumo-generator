@@ -6,6 +6,7 @@
     :friend="friend"
     placeholder="m,n"
     @change="changeValue"
+    @input="updateValue"
   >
 </template>
 
@@ -18,6 +19,9 @@ export default {
     friend: { type: Boolean, required: true },
   },
   methods: {
+    updateValue: function(e) {
+      this.$emit("input", e.target.value)
+    },
     changeValue: function(e) {
       this.$emit("change", [e.target.value, e.target.parentNode.parentNode.getAttribute('id')])
     },

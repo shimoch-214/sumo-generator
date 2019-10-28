@@ -25,10 +25,10 @@ export default {
     },
     checkValue: function(e) {
       var lv = e.target.value;
-      if (/[1-9]|[1-9][0-9]/.test(lv) && lv != 0) {
+      if (!/^([1-9]|[1-9][0-9])$/.test(lv) && lv != "") {
         alert('Lvは1~99の間です')
         e.target.value = '';
-        this.$emit("input", e.target.value);
+        this.$emit("input", lv);
       }
     },
   },

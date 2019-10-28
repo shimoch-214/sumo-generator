@@ -32,7 +32,6 @@ export default {
       cellLength: 0,
       style: "",
       editedField: [],
-      oldField: {}
     }
   },
   methods: {
@@ -138,22 +137,10 @@ export default {
   },
   updated: function() {
     this.$nextTick(function(){
-
-      // フラグの初期化
-      this.geteditedField();
       // サイズの取得
       this.getComponentSize();
-
-      // cell背景の初期化
-      for (var i=0; i<12; i++) {
-        for (var j=0; j<12; j++) {
-          var classes = document.querySelector(`#r${i}c${j}`).classList
-          if (classes.contains("empty")) {
-            classes.remove("empty");
-            classes.add("wall");
-          }
-        }
-      }
+      // リサイズ
+      this.setStyle();
     })
   },
   mounted: function() {

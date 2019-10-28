@@ -3,11 +3,11 @@
     <nav class="grey lighten-2">
       <div class="nav-wrapper">
         <div class="col s12 m10 offset-m1">
-          <span class="brand-logo black-text">Field</span>
+          <span class="brand-logo black-text">sumo generator</span>
         </div>
       </div>
     </nav>
-    <div class="col s10 offset-s1" style="padding-top: 20px;">
+    <div class="col s8 offset-s2" style="padding-top: 40px;">
       <div id="field" class="col s12 m8">
         <Cell
           @updateField="updateField($event)"
