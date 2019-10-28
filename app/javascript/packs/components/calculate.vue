@@ -1,5 +1,5 @@
 <template>
-  <div class="row grey lighten-2 main-forms" >
+  <div class="row grey lighten-4 main-forms" >
     
     <!-- modal -->
     <MyModal @close="closeModal" v-if="modal" :running="running" :result="result">
