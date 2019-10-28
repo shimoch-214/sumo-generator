@@ -4,7 +4,7 @@
       :name="name"
       :value="value"
       :friend="friend"
-      :checked="(value)? true: false"
+      :checked="value"
       @change="updateValue"
       :disabled="!(friend)"
     >
@@ -26,11 +26,7 @@ export default {
   },
   methods: {
     updateValue: function(e) {
-      if(e.target.checked) {
-        this.$emit("input", true);
-      } else {
-        this.$emit("input", false);
-      }
+      this.$emit("input", e.target.checked);
     }
   },
 }

@@ -64,17 +64,6 @@ export default {
     running: {type: Boolean, required: true},
     result: {type: Object},
   },
-  // watch: {
-  //   result: {
-  //     handler: function() {
-  //       Object.keys(this.result.monsters).forEach(function(key) {
-  //         console.log(this.result.monsters)
-  //       })
-  //     },
-  //     deep: true,
-  //     immediate: true,
-  //   }
-  // }
 }
 </script>
 

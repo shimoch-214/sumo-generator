@@ -9,6 +9,12 @@
       :value="value"
       >
       <option
+        :value="value"
+        v-if="!friend"
+      >
+        タネすも
+      </option>
+      <option
         v-for="(option,index) in options"
         :value="option.value"
         :key="index"
@@ -21,7 +27,7 @@
 
 <script>
 export default {
-  name: "SumoSelect",
+  name: "TribeSelect",
   props: {
     name: { type: String, required: true },
     value: { required: true },
@@ -31,7 +37,8 @@ export default {
   methods: {
     updateValue: function(e) {
       this.$emit("input", e.target.value);
-    }
+      this.$emit('change', [e.target.value, e.target.parentNode.parentNode.parentNode.getAttribute('id')])
+    },
   },
 }
 </script>
