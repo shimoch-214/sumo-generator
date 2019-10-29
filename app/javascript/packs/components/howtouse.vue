@@ -73,7 +73,7 @@
           </h5>
           <p class="content-main__description">
             Click the Simulate button to execute.
-            It take about 10 second for 1000turns x 100times calculation.
+            It takes about 10 second for 1000turns x 100times calculation.
           </p>
         </div>
       </div>
