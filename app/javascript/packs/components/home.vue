@@ -1,5 +1,5 @@
 <template>
-  <div class="row blue-grey-text text-darken-3">
+  <div class="row blue-grey-text text-darken-3" style="margin-bottom: 0;">
     <nav class="grey lighten-4">
       <div class="nav-wrapper">
         <div class="col s12 m10 offset-m1">
