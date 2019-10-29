@@ -1,7 +1,7 @@
 class Api::CalcsController < ApplicationController
   include SumoCombo::Simulator
 
-  def create
+  def calculate
     data = setting_params.to_hash.symbolize_keys
     data[:monsters].each.with_index do |mons, i|
       data[:monsters][i] = mons.symbolize_keys

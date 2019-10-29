@@ -11,6 +11,7 @@
       @turnsChange="updateTurns($event)"
       @timesChange="updateTimes($event)"
       @runCalculate="submitData"
+      :key="'field'+reRendering"
     >
     </Field>
 
@@ -18,6 +19,7 @@
       class="monster-forms"
       :field="setting.field"
       @monsterChange="updateMonsterForms($event)"
+      :key="'monster'+reRendering"
     >
     </Monster>
 
@@ -45,6 +47,7 @@ export default {
         turns: "",
         times: "",
       },
+      reRendering: "none",
       modal: false,
       message: "",
       running: true,
@@ -90,12 +93,12 @@ export default {
       //     return qs.stringify(params, {arrayFormat: 'brackets'})
       //   }
       // }
-      axios.post('/api/calcs', setting)
+      axios.post('/api/calcs/calculate', setting)
       .then((response) => {
         this.result = response.data;
         this.running = false;
       }, (error) => {
-        alert("なんか失敗した");
+        alert("sorry, failed");
         this.running = false;
       });
     },
@@ -166,7 +169,31 @@ export default {
       this.modal = false;
       this.running = true;
     },
+    getSample(id) {
+      axios.get(`/api/samples/${id}`, id)
+      .then((response) => {
+        this.setting = response.data;
+      }), (error) => {
+        alert("sorry, failed.")
+      }
+      this.reRendering = id
+
+    }
   },
+  watch: {
+    '$route' (to, from) {
+      if (to.params.sampleId) {
+        var id = to.params.sampleId.match(/\d/)[0]
+        this.getSample(id)
+      }
+    }
+  },
+  created: function() {
+    if (this.$route.params.sampleId) {
+      var id = this.$route.params.sampleId.match(/\d/)[0]
+      this.getSample(id)
+    }
+  }
 }
 </script>
 

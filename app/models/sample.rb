@@ -1,4 +1,4 @@
-class SampleSetting < ActiveHash::Base
+class Sample < ActiveHash::Base
   self.data=[
     { id: 1, setting: {
       field: [
