@@ -6,13 +6,13 @@
       :key="row"
     >
       <div
-        class="cells wall"
         @contextmenu="dblexchangeImage"
         @click="exchangeImage"
         v-for="col in 12"
         :key="col"
         :id="'r'+(row-1)+'c'+(col-1)"
         :style="style"
+        :class="setClass(row, col)"
       >
         <p v-if="row-1==0">{{col-1}}</p>
         <p v-if="col-1==0 && row-1!=0">{{row-1}}</p>
@@ -26,6 +26,7 @@
 export default {
   name: 'Cell',
   props: {
+    field: { type: Array, required: true }
   },
   data: function(){
     return {
@@ -36,9 +37,6 @@ export default {
   },
   methods: {
     exchangeImage: function(e) {
-      // cellのクラスを取得
-      var elClass = e.target.classList
-
       // cellのid取得
       var elId = e.target.getAttribute("id");
       elId = elId.split(/[a-z]/);
@@ -52,47 +50,28 @@ export default {
       if(col == 0 || col == 11){
         return
       }
-
-      if (elClass.contains("wall")) {
-        elClass.remove("wall");
-        elClass.add("empty");
+      if (this.editedField[row][col]==0) {
         this.editedField[row][col] = 1;
       } else {
-        elClass.remove("empty");
-        elClass.add("wall");
         this.editedField[row][col] = 0;
       }
-
       this.emitField();
     },
     dblexchangeImage: function(e) {
       e.preventDefault();
-
-      // cellのクラスを取得
-      var elClass = e.target.classList;
-
       // cellのidを取得
       var elId = e.target.getAttribute("id");
       elId = elId.split(/[a-z]/);
       elId.shift();
       var row = Number(elId[0]);
       var col = Number(elId[1]);
-
+      var flag = this.editedField[row][col];
       if(row == 0 || row == 11){
         return
       }
       if(col == 0 || col == 11){
         return
       }
-
-      if ((elClass.contains("wall"))) {
-        var fromClass = "wall"
-        var toClass = "empty";
-      } else {
-        var fromClass = "empty"
-        var toClass = "wall";
-      }
-
       for (var i = -1; i < 2; i++) {
         if (row+i == 0 || row+i == 11) {
           continue;
@@ -101,9 +80,7 @@ export default {
           if (col+j == 0 || col+j == 11) {
             continue;
           } else {
-            document.querySelector(`#r${row+i}c${col+j}`).classList.remove(fromClass);
-            document.querySelector(`#r${row+i}c${col+j}`).classList.add(toClass);
-            if (toClass == "wall") {
+            if (flag == 1) {
               this.editedField[row+i][col+j] = 0;
             } else {
               this.editedField[row+i][col+j] = 1;
@@ -125,23 +102,24 @@ export default {
       this.style = `
         width: ${this.cellLength}px;
         height: ${this.cellLength}px;
-        line-height: ${this.cellLength}px;
-      `
+        line-height: ${this.cellLength}px;`
+    },
+    setClass: function(row, col) {
+      if (this.field[row-1][col-1]) {
+        return "cells empty"
+      } else {
+        return "cells wall"
+      }
     },
     geteditedField: function() {
       this.editedField = new Array(12);
       for(var i=0; i < 12; i++) {
-        this.editedField[i] = new Array(12).fill(0);
+        this.editedField[i] = Array.from(this.field[i]);
       }
     }
   },
   updated: function() {
-    this.$nextTick(function(){
-      // サイズの取得
-      this.getComponentSize();
-      // リサイズ
-      this.setStyle();
-    })
+    this.geteditedField();
   },
   mounted: function() {
     this.geteditedField();

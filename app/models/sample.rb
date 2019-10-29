@@ -28,8 +28,8 @@ class Sample < ActiveHash::Base
         {id: 10, tribe: "km", order: 9, lv: "", position: "", weaken: "0", join: false, doping: "0", sealed: false, speed: false, strip: false, friend: true},
         {id: 11, tribe: "seed", order: 0, lv: "1", position: "3,5", weaken: "0", join: true, doping: "0", sealed: false, speed: false, strip: false, friend: false}
       ],
-      turns: 1000,
-      times: 10,
+      turns: "1000",
+      times: "10",
     }}
   ]
 end

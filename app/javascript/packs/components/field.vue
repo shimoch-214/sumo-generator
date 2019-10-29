@@ -10,16 +10,17 @@
     <div class="col s10 offset-s1" style="padding-top: 40px;">
       <div id="field" class="col s12 m8">
         <Cell
+          :field="field"
           @updateField="updateField($event)"
         ></Cell>
       </div>
       <div class="col s12 m4">
         <div class="input-field">
-          <input type="text" id="cols" v-model="turns" placeholder="ターン数">
+          <input type="text" id="cols" v-model="turnsInput" placeholder="ターン数">
           <label for="cols" class='active'>Turns</label>
         </div>
         <div class="input-field">
-          <input type="text" id="cols" v-model="times" placeholder="試行回数">
+          <input type="text" id="cols" v-model="timesInput" placeholder="試行回数">
           <label for="cols" class='active'>Times</label>
         </div>
         <div class="btn" @click="submitData">
@@ -38,45 +39,35 @@ export default {
   components: {
     Cell,
   },
-  data: function() {
-    return {
-      field: [],
-      turns: "1000",
-      times: "100",
-    }
+  props: {
+    field: { type: Array, required: true },
+    turns: { type: String, required: true },
+    times: { type: String, required: true }
   },
   methods: {
-    initializeField: function() {
-      this.field = new Array(12);
-      for(var i=0; i < 12; i++) {
-        this.field[i] = new Array(12).fill(0);
-      }
-    },
-    updateField: function(field) {
-      this.field = Array.from(field);
+    updateField: function(value) {
+      this.$emit('fieldChange', value)
     },
     submitData: function(e) {
       this.$emit('runCalculate')
     }
   },
-  mounted: function() {
-    this.initializeField();
-    this.$emit('turnsChange', this.turns)
-    this.$emit('timesChange', this.times)
-  },
-  watch: {
-    field: {
-      handler: function(val) {
-        this.$emit('fieldChange', val)
+  computed: {
+    turnsInput: {
+      get: function() {
+        return this.turns
       },
-      deep: true,
-      immediate: true
+      set: function(value) {
+        this.$emit('turnsInput', value)
+      }
     },
-    turns: function(val) {
-      this.$emit('turnsChange', val)
-    },
-    times: function(val) {
-      this.$emit('timesChange', val)
+    timesInput: {
+      get: function() {
+        return this.times
+      },
+      set: function(value) {
+        this.$emit('timesInput', value)
+      }
     }
   }
 }

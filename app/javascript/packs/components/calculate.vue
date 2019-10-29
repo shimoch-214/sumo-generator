@@ -8,9 +8,12 @@
 
     <Field
       @fieldChange="updateField($event)"
-      @turnsChange="updateTurns($event)"
-      @timesChange="updateTimes($event)"
       @runCalculate="submitData"
+      :field="setting.field"
+      :turns="setting.turns"
+      @turnsInput="setting.turns=$event"
+      :times="setting.times"
+      @timesInput="setting.times=$event"
       :key="'field'+reRendering"
     >
     </Field>
@@ -18,8 +21,8 @@
     <Monster
       class="monster-forms"
       :field="setting.field"
-      :monsterForms="setting.monsterForms"
       :key="'monster'+reRendering"
+      :monster-forms="setting.monsterForms"
     >
     </Monster>
 
@@ -212,8 +215,8 @@ export default {
             friend: false
           }
         ],
-        turns: "",
-        times: "",
+        turns: "1000",
+        times: "100",
       },
       reRendering: "none",
       modal: false,
@@ -228,18 +231,6 @@ export default {
       for(var i = 0; i < field.length; i++) {
         this.setting.field[i] = Array.from(field[i]);
       }
-    },
-    updateMonsterForms: function(monsterForms) {
-      this.setting.monsterForms = new Array(monsterForms.length);
-      for(var i = 0; i < monsterForms.length; i++) {
-        this.setting.monsterForms[i] = Object.assign({}, monsterForms[i]);
-      }
-    },
-    updateTurns: function(turns) {
-      this.setting.turns = turns;
-    },
-    updateTimes: function(times) {
-      this.setting.times = times;
     },
     submitData: function() {
       var message = this.monsterFormsValidation();
