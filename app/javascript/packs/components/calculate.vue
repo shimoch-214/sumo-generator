@@ -18,7 +18,7 @@
     <Monster
       class="monster-forms"
       :field="setting.field"
-      @monsterChange="updateMonsterForms($event)"
+      :monsterForms="setting.monsterForms"
       :key="'monster'+reRendering"
     >
     </Monster>
@@ -42,8 +42,176 @@ export default {
   data: function() {
     return {
       setting: {
-        field: [],
-        monsterForms: [],
+        field: [
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ],
+        monsterForms: [
+          {
+            id: 1,
+            tribe: "km",
+            order: 0,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 2,
+            tribe: "km",
+            order: 1,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 3,
+            tribe: "km",
+            order: 2,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 4,
+            tribe: "km",
+            order: 3,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 5,
+            tribe: "km",
+            order: 4,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 6,
+            tribe: "km",
+            order: 5,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 7,
+            tribe: "km",
+            order: 6,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 8,
+            tribe: "km",
+            order: 7,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 9,
+            tribe: "km",
+            order: 8,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 10,
+            tribe: "km",
+            order: 9,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 11,
+            tribe: "seed",
+            order: 0,
+            lv: "1",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: false
+          }
+        ],
         turns: "",
         times: "",
       },

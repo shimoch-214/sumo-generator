@@ -135,166 +135,11 @@ export default {
     SumoSelect,
   },
   props: {
-    field: { type: Array, required: true }
+    field: { type: Array, required: true },
+    monsterForms: { type: Array, required: true }
   },
   data: function(){
     return {
-      monsterForms: [
-        {
-          id: 1,
-          tribe: "km",
-          order: 0,
-          lv: "",
-          position: "",
-          doping: "0",
-          weaken: 0,
-          speed: false,
-          sealed: false,
-          strip: false,
-          join: true,
-          friend: true
-        },
-        {
-          id: 2,
-          tribe: "km",
-          order: 1,
-          lv: "",
-          position: "",
-          doping: "0",
-          weaken: 0,
-          speed: false,
-          sealed: false,
-          strip: false,
-          join: true,
-          friend: true
-        },
-        {
-          id: 3,
-          tribe: "km",
-          order: 2,
-          lv: "",
-          position: "",
-          doping: "0",
-          weaken: 0,
-          speed: false,
-          sealed: false,
-          strip: false,
-          join: true,
-          friend: true
-        },
-        {
-          id: 4,
-          tribe: "km",
-          order: 3,
-          lv: "",
-          position: "",
-          doping: "0",
-          weaken: 0,
-          speed: false,
-          sealed: false,
-          strip: false,
-          join: true,
-          friend: true
-        },
-        {
-          id: 5,
-          tribe: "km",
-          order: 4,
-          lv: "",
-          position: "",
-          doping: "0",
-          weaken: 0,
-          speed: false,
-          sealed: false,
-          strip: false,
-          join: true,
-          friend: true
-        },
-        {
-          id: 6,
-          tribe: "km",
-          order: 5,
-          lv: "",
-          position: "",
-          doping: "0",
-          weaken: 0,
-          speed: false,
-          sealed: false,
-          strip: false,
-          join: true,
-          friend: true
-        },
-        {
-          id: 7,
-          tribe: "km",
-          order: 6,
-          lv: "",
-          position: "",
-          doping: "0",
-          weaken: 0,
-          speed: false,
-          sealed: false,
-          strip: false,
-          join: true,
-          friend: true
-        },
-        {
-          id: 8,
-          tribe: "km",
-          order: 7,
-          lv: "",
-          position: "",
-          doping: "0",
-          weaken: 0,
-          speed: false,
-          sealed: false,
-          strip: false,
-          join: true,
-          friend: true
-        },
-        {
-          id: 9,
-          tribe: "km",
-          order: 8,
-          lv: "",
-          position: "",
-          doping: "0",
-          weaken: 0,
-          speed: false,
-          sealed: false,
-          strip: false,
-          join: true,
-          friend: true
-        },
-        {
-          id: 10,
-          tribe: "km",
-          order: 9,
-          lv: "",
-          position: "",
-          doping: "0",
-          weaken: 0,
-          speed: false,
-          sealed: false,
-          strip: false,
-          join: true,
-          friend: true
-        },
-        {
-          id: 11,
-          tribe: "seed",
-          order: 0,
-          lv: "1",
-          position: "",
-          doping: "0",
-          weaken: 0,
-          speed: false,
-          sealed: false,
-          strip: false,
-          join: true,
-          friend: false
-        }
-      ],
       tribes: [
         { value: "km", label: "キラーマ" },
         { value: "su", label: "スモグル" },
@@ -403,15 +248,6 @@ export default {
       this.isPanelShown = !this.isPanelShown
     }
   },
-  watch: {
-    monsterForms: {
-      handler: function(val) {
-        this.$emit('monsterChange', val)
-      },
-      deep: true,
-      immediate: true
-    }
-  }
 }
 </script>
 
