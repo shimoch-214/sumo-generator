@@ -1,9 +1,9 @@
 <template>
-  <div class="row grey lighten-1 forms-updown">
-    <nav class="grey lighten-1 waves-effect waves-light" @click="toggleCtrlPanel">
+  <div class="row grey lighten-2 forms-updown">
+    <nav class="grey lighten-2 waves-effect waves-light" @click="toggleCtrlPanel">
       <div class="nav-wrapper">
           <div class="col s12 m10 offset-m1">
-            <span class="brand-logo black-text">settings</span>
+            <span class="brand-logo blue-grey-text lighten-3 setting-style">Party</span>
           </div>
       </div>
     </nav>
@@ -461,7 +461,7 @@ table {
 }
 
 .forms-updown {
-  width: calc(100%);
+  width: calc(100% - 300px);
 }
 
 

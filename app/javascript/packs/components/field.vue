@@ -1,9 +1,9 @@
 <template>
   <div class="row">
-    <nav class="grey lighten-2">
+    <nav class="grey lighten-4">
       <div class="nav-wrapper">
         <div class="col s12 m10 offset-m1">
-          <span class="brand-logo black-text">sumo generator</span>
+          <span class="brand-logo blue-grey-text lighten-3 setting-style">Settings</span>
         </div>
       </div>
     </nav>
@@ -16,11 +16,11 @@
       <div class="col s12 m4">
         <div class="input-field">
           <input type="text" id="cols" v-model="turns" placeholder="ターン数">
-          <label for="cols">Turns</label>
+          <label for="cols" class='active'>Turns</label>
         </div>
         <div class="input-field">
           <input type="text" id="cols" v-model="times" placeholder="試行回数">
-          <label for="cols">Times</label>
+          <label for="cols" class='active'>Times</label>
         </div>
         <div class="btn" @click="submitData">
           Simulate!!
@@ -83,4 +83,8 @@ export default {
 </script>
 
 <style>
+.setting-style {
+  font-family: Arial;
+  letter-spacing: 0.1em;
+}
 </style>
