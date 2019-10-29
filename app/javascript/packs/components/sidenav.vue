@@ -78,13 +78,5 @@ export default {
 </script>
 
 <style>
-.title-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  font-size: 28px;
-  letter-spacing: 0.1em;
-  font-family: Arial;
-}
+
 </style>

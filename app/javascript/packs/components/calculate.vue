@@ -101,7 +101,7 @@ export default {
     },
     formatSetting: function() {
       var setting =  new Object();
-
+      console.log(this.setting)
       // field部分
       setting.field = new Array(this.setting.field.length);
       for(var i = 0; i < setting.field.length; i++) {

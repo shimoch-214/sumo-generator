@@ -172,6 +172,7 @@ export default {
 .empty {
   background-color: rgba(216, 212, 221, 0.644);
   color: rgba(6, 3, 163, 0.685);
+  font-size: 1.4vw;
 }
 
 .line-modifier {

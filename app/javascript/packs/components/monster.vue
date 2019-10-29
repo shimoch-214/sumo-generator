@@ -389,13 +389,13 @@ export default {
     },
     buildMonsterName: function(tribe, order) {
       if (tribe == 'km') {
-        var html = `<p id="${tribe}${order}" style="font-size: 1.5rem;">機${order}</p>`;
+        var html = `<p id="${tribe}${order}">機${order}</p>`;
       } else if (tribe == 'ho') {
-        var html = `<p id="${tribe}${order}" style="font-size: 1.5rem;">ホ${order}</p>`;
+        var html = `<p id="${tribe}${order}">ホ${order}</p>`;
       } else if (tribe == 'su') {
-        var html = `<p id="${tribe}${order}" style="font-size: 1.5rem;">ス${order}</p>`;
+        var html = `<p id="${tribe}${order}">ス${order}</p>`;
       } else if (tribe == 'seed') {
-        var html = `<p id="${tribe}${order}" style="font-size: 1.5rem;">種</p>`;
+        var html = `<p id="${tribe}${order}">種</p>`;
       }
       return html
     },

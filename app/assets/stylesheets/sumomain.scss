@@ -7,6 +7,8 @@
     padding-left: 0;
   }
 }
+
+// sidenav
 .sidenav .collapsible>.active .collapsible-header .chevron {
       transform: rotate(-90deg);
 }
@@ -19,6 +21,20 @@
 }
 .test {
   padding: 0 16px;
+}
+.title-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  font-size: 28px;
+  letter-spacing: 0.1em;
+  font-family: Arial;
+}
+
+.setting-style {
+  font-family: Arial;
+  letter-spacing: 0.1em;
 }
 
 .content-main {

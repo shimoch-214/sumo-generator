@@ -7,7 +7,7 @@
         </div>
       </div>
     </nav>
-    <div class="col s8 offset-s2" style="padding-top: 40px;">
+    <div class="col s10 offset-s1" style="padding-top: 40px;">
       <div id="field" class="col s12 m8">
         <Cell
           @updateField="updateField($event)"
@@ -83,8 +83,5 @@ export default {
 </script>
 
 <style>
-.setting-style {
-  font-family: Arial;
-  letter-spacing: 0.1em;
-}
+
 </style>
