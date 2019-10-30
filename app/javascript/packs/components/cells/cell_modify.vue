@@ -16,17 +16,28 @@
       >
         <p v-if="row-1==0">{{col-1}}</p>
         <p v-if="col-1==0 && row-1!=0">{{row-1}}</p>
+        <Cell
+          :row="row-1"
+          :col="col-1"
+          :monsterForms="monsterForms"
+        >
+        </Cell>
       </div>
     </div>
+    
   </div>
 </template>
 
 <script>
+import Cell from './cell'
 
 export default {
-  name: 'Cell',
+  components: {
+    Cell
+  },
   props: {
-    field: { type: Array, required: true }
+    field: { type: Array, required: true },
+    monsterForms: { type: Array, required: true }
   },
   data: function(){
     return {
@@ -116,7 +127,7 @@ export default {
       for(var i=0; i < 12; i++) {
         this.editedField[i] = Array.from(this.field[i]);
       }
-    }
+    },
   },
   updated: function() {
     this.geteditedField();
@@ -125,7 +136,7 @@ export default {
     this.geteditedField();
     this.getComponentSize();
     window.addEventListener('resize', this.getComponentSize);
-  }
+  },
 }
 </script>
 

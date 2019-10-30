@@ -9,10 +9,11 @@
     </nav>
     <div class="col s10 offset-s1" style="padding-top: 40px;">
       <div id="field" class="col s12 m8">
-        <Cell
+        <Cells
           :field="field"
+          :monsterForms="monsterForms"
           @updateField="updateField($event)"
-        ></Cell>
+        ></Cells>
       </div>
       <div class="col s12 m4">
         <div class="input-field">
@@ -32,15 +33,16 @@
 </template>
 
 <script>
-import Cell from './cells/cell_modify'
+import Cells from './cells/cell_modify'
 import Vue from 'vue/dist/vue.esm.js'
 
 export default {
   components: {
-    Cell,
+    Cells,
   },
   props: {
     field: { type: Array, required: true },
+    monsterForms: { type: Array, required: true },
     turns: { type: String, required: true },
     times: { type: String, required: true }
   },

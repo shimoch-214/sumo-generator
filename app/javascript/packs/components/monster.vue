@@ -37,7 +37,6 @@
                   name="tribe"
                   :options="tribes"
                   :friend="monsterForm.friend"
-                  @change="changeName($event)"
                 ></TribeSelect>
               </td>
               <td class="select-width">
@@ -59,8 +58,9 @@
                 <PositionInput
                   v-model="monsterForm.position"
                   name="position"
+                  :field="field"
+                  :monsterForms="monsterForms"
                   :friend="monsterForm.friend"
-                  @change="setMonster($event)"
                 ></PositionInput>
               </td>
               <td class="input-width">
@@ -173,77 +173,6 @@ export default {
     }
   },
   methods: {
-    positionClear: function(parentId) {
-      document.querySelector(`#${parentId} input[name="position"]`).value="";
-      parentId = Number(parentId.replace(/[^0-9]/g,''));
-      this.monsterForms[parentId-1].position = ""
-    },
-    setMonster: function(params) {
-      var val = params[0];
-      var parentId = params[1];
-      var rows = this.field.length;
-      var cols = this.field[0].length;
-      var row = val.split(',')[0]
-      var col = val.split(',')[1]
-      var tribe = document.querySelector(`#${parentId} select[name="tribe"]`).value
-      var order = Number(document.querySelector(`#${parentId} select[name="order"]`).value)+1
-      var target = document.querySelector(`#${tribe}${order}`);
-      if (target) {
-        target.parentNode.removeChild(target);
-      }
-      if (val == "") {
-        return
-      }
-      // m,nの形式で入力されていなければダメ
-      if (!val.match(/^\d{1,},\d{1,}/)) {
-        alert("'m,n'の形式で入力してください");
-        this.positionClear(parentId);
-        return
-      }
-      // field[row][col]が空じゃないとだめ
-      if (row < 1 || col < 1 || row > rows-2 || col > cols-2) {
-        alert("壁際には配置できません")
-        this.positionClear(parentId);
-        return
-      } else if (!this.field[row][col]) {
-        alert("壁の中には配置できません")
-        this.positionClear(parentId);
-        return
-      } else if (document.querySelector(`#r${row}c${col}`).children.length) {
-        alert("他のユニットがいます")
-        this.positionClear(parentId);
-        return
-      }
-      var html = this.buildMonsterName(tribe, order);
-      document.querySelector(`#r${row}c${col}`).insertAdjacentHTML('beforeend', html);
-    },
-    changeName: function(params) {
-      var val = params[0];
-      var parentId = params[1];
-      var position = document.querySelector(`#${parentId} input[name="position"]`).value
-      var order = Number(document.querySelector(`#${parentId} select[name="order"]`).value)+1
-      if (position == "") {
-        return;
-      }
-      var row = position.split(',')[0]
-      var col = position.split(',')[1]
-      var html = this.buildMonsterName(val, order)
-      var target = document.querySelector(`#r${row}c${col}`)
-      target.removeChild(target.lastChild)
-      target.insertAdjacentHTML('beforeend', html)
-    },
-    buildMonsterName: function(tribe, order) {
-      if (tribe == 'km') {
-        var html = `<p id="${tribe}${order}">機${order}</p>`;
-      } else if (tribe == 'ho') {
-        var html = `<p id="${tribe}${order}">ホ${order}</p>`;
-      } else if (tribe == 'su') {
-        var html = `<p id="${tribe}${order}">ス${order}</p>`;
-      } else if (tribe == 'seed') {
-        var html = `<p id="${tribe}${order}">種</p>`;
-      }
-      return html
-    },
     toggleCtrlPanel: function() {
       this.isPanelShown = !this.isPanelShown
     }

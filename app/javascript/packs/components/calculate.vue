@@ -10,6 +10,7 @@
       @fieldChange="updateField($event)"
       @runCalculate="submitData"
       :field="setting.field"
+      :monsterForms="setting.monsterForms"
       :turns="setting.turns"
       @turnsInput="setting.turns=$event"
       :times="setting.times"
@@ -306,7 +307,6 @@ export default {
         if (!monster.join || !monster.friend) {
           return
         }
-
         if (orderArray.includes(Number(monster.order)) && !orderFlag) {
           message += "行動順が重複しています\n";
           orderFlag = !orderFlag;
