@@ -79,3 +79,5 @@ gem 'jquery-rails'
 
 # server
 gem 'foreman'
+
+gem 'active_hash'

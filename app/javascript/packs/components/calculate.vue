@@ -8,16 +8,22 @@
 
     <Field
       @fieldChange="updateField($event)"
-      @turnsChange="updateTurns($event)"
-      @timesChange="updateTimes($event)"
       @runCalculate="submitData"
+      :field="setting.field"
+      :monsterForms="setting.monsterForms"
+      :turns="setting.turns"
+      @turnsInput="setting.turns=$event"
+      :times="setting.times"
+      @timesInput="setting.times=$event"
+      :key="'field'+reRendering"
     >
     </Field>
 
     <Monster
       class="monster-forms"
       :field="setting.field"
-      @monsterChange="updateMonsterForms($event)"
+      :key="'monster'+reRendering"
+      :monster-forms="setting.monsterForms"
     >
     </Monster>
 
@@ -40,11 +46,180 @@ export default {
   data: function() {
     return {
       setting: {
-        field: [],
-        monsterForms: [],
-        turns: "",
-        times: "",
+        field: [
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ],
+        monsterForms: [
+          {
+            id: 1,
+            tribe: "km",
+            order: 0,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 2,
+            tribe: "km",
+            order: 1,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 3,
+            tribe: "km",
+            order: 2,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 4,
+            tribe: "km",
+            order: 3,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 5,
+            tribe: "km",
+            order: 4,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 6,
+            tribe: "km",
+            order: 5,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 7,
+            tribe: "km",
+            order: 6,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 8,
+            tribe: "km",
+            order: 7,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 9,
+            tribe: "km",
+            order: 8,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 10,
+            tribe: "km",
+            order: 9,
+            lv: "",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: true
+          },
+          {
+            id: 11,
+            tribe: "seed",
+            order: 0,
+            lv: "1",
+            position: "",
+            doping: "0",
+            weaken: 0,
+            speed: false,
+            sealed: false,
+            strip: false,
+            join: true,
+            friend: false
+          }
+        ],
+        turns: "1000",
+        times: "100",
       },
+      reRendering: "none",
       modal: false,
       message: "",
       running: true,
@@ -57,18 +232,6 @@ export default {
       for(var i = 0; i < field.length; i++) {
         this.setting.field[i] = Array.from(field[i]);
       }
-    },
-    updateMonsterForms: function(monsterForms) {
-      this.setting.monsterForms = new Array(monsterForms.length);
-      for(var i = 0; i < monsterForms.length; i++) {
-        this.setting.monsterForms[i] = Object.assign({}, monsterForms[i]);
-      }
-    },
-    updateTurns: function(turns) {
-      this.setting.turns = turns;
-    },
-    updateTimes: function(times) {
-      this.setting.times = times;
     },
     submitData: function() {
       var message = this.monsterFormsValidation();
@@ -90,18 +253,18 @@ export default {
       //     return qs.stringify(params, {arrayFormat: 'brackets'})
       //   }
       // }
-      axios.post('/api/calcs', setting)
+      axios.post('/api/calcs/calculate', setting)
       .then((response) => {
         this.result = response.data;
         this.running = false;
       }, (error) => {
-        alert("なんか失敗した");
+        alert("sorry, failed");
         this.running = false;
       });
     },
     formatSetting: function() {
       var setting =  new Object();
-
+      console.log(this.setting)
       // field部分
       setting.field = new Array(this.setting.field.length);
       for(var i = 0; i < setting.field.length; i++) {
@@ -144,7 +307,6 @@ export default {
         if (!monster.join || !monster.friend) {
           return
         }
-
         if (orderArray.includes(Number(monster.order)) && !orderFlag) {
           message += "行動順が重複しています\n";
           orderFlag = !orderFlag;
@@ -166,7 +328,31 @@ export default {
       this.modal = false;
       this.running = true;
     },
+    getSample(id) {
+      axios.get(`/api/samples/${id}`, id)
+      .then((response) => {
+        this.setting = response.data;
+      }), (error) => {
+        alert("sorry, failed.")
+      }
+      this.reRendering = id
+
+    }
   },
+  watch: {
+    '$route' (to, from) {
+      if (to.params.sampleId) {
+        var id = to.params.sampleId.match(/\d/)[0]
+        this.getSample(id)
+      }
+    }
+  },
+  created: function() {
+    if (this.$route.params.sampleId) {
+      var id = this.$route.params.sampleId.match(/\d/)[0]
+      this.getSample(id)
+    }
+  }
 }
 </script>
 

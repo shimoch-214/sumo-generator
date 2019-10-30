@@ -11,9 +11,8 @@ export default new VueRouter ({
   routes: [
     { path: '/', component: Home },
     { path: '/how_to', component: HowTo },
-    { path: '/calculate', component: Calculate },
-    { path: '/calculate/sample1', component: Calculate },
-    { path: '/calculate/sample2', component: Calculate },
-    { path: '/calculate/sample3', component: Calculate }
+    { path: '/calculate', component: Calculate, children: [
+        { path: ':sampleId', component: Calculate }, 
+    ]},
   ],
 })

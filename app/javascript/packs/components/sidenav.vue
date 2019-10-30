@@ -45,7 +45,7 @@
               </li>
               <li>
                 <router-link to="/calculate/sample2">
-                  <span style="padding: 16px;">3 on 3 double</span>
+                  <span style="padding: 16px;">4 on 4 double</span>
                 </router-link>
               </li>
               <li>
@@ -78,13 +78,5 @@ export default {
 </script>
 
 <style>
-.title-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  font-size: 28px;
-  letter-spacing: 0.1em;
-  font-family: Arial;
-}
+
 </style>

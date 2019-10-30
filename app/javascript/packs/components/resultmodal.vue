@@ -23,9 +23,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(monster,key) in result.monsters" :key="key">
-                      <!-- <td>{{Object.keys(monster)[0]}}</td> -->
-                      <td>{{key}}</td>
+                    <tr v-for="(monster,index) in result.monsters" :key="index">
+                      <td>{{index}}</td>
                       <td>{{monster.position.join(",")}}</td>
                       <td>{{monster.exp}}</td>
                       <td>{{monster.death}}</td>
