@@ -34,6 +34,7 @@ module SumoCombo
     def experiment(params)
       result = {}
       exp_sum = 0
+      failure = 0
 
       # 各試行の結果を加算
       params[:times].times do
@@ -48,17 +49,26 @@ module SumoCombo
           end
         end
       end
-
-      # 獲得経験値の平均をとる、合計値をとる
+      
+      # 崩壊回数
       result[:monsters].each_key do |key|
-        result[:monsters][key][:exp] /= params[:times]
+        failure += result[:monsters][key][:death]
+      end
+
+      # 成功時の獲得経験値の平均をとる
+      result[:monsters].each_key do |key|
+        begin
+          result[:monsters][key][:exp] /= (params[:times]-failure)
+        rescue ZeroDivisionError
+          result[:monsters][key][:exp] = 0
+        end
         exp_sum += result[:monsters][key][:exp]
       end
 
       result[:exp_sum] = exp_sum
 
       # 崩壊率の計算
-      failure_rate = (Sequence.get_failure.fdiv(params[:times])*100).round(2)
+      failure_rate = (failure.fdiv(params[:times])*100).round(2)
       result[:failure_rate] = failure_rate
 
       result
@@ -498,7 +508,5 @@ module SumoCombo
         @result["#{friend.name}#{friend.order}".to_sym][:death] += 1
       end
     end
-
   end
-
 end

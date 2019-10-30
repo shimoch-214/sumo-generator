@@ -45,7 +45,7 @@
               </li>
               <li>
                 <router-link to="/calculate/sample2">
-                  <span style="padding: 16px;">3 on 3 double</span>
+                  <span style="padding: 16px;">4 on 4 double</span>
                 </router-link>
               </li>
               <li>
