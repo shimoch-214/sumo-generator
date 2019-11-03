@@ -5,24 +5,41 @@
     <MyModal @close="closeModal" v-if="modal" :running="running" :result="result">
     </MyModal>
 
-
-    <Field
-      @fieldChange="updateField($event)"
-      @runCalculate="submitData"
-      :field="setting.field"
-      :monsterForms="setting.monsterForms"
-      :turns="setting.turns"
-      @turnsInput="setting.turns=$event"
-      :times="setting.times"
-      @timesInput="setting.times=$event"
-      :key="'field'+reRendering"
-    >
-    </Field>
+    <div class="row">
+      <nav class="grey lighten-4">
+        <div class="nav-wrapper">
+          <div class="col s12 m10 offset-m1">
+            <span class="brand-logo blue-grey-text lighten-3 setting-style">Settings</span>
+          </div>
+        </div>
+      </nav>
+      <div class="col s10 offset-s1" style="padding-top: 40px;">
+        <div id="field" class="col s12 m8">
+          <Cells
+            :field="setting.field"
+            :monsterForms="setting.monsterForms"
+            @updateField="updateField($event)"
+          ></Cells>
+        </div>
+        <div class="col s12 m4">
+          <div class="input-field">
+            <input type="text" id="cols" v-model.lazy="setting.turns" placeholder="turns">
+            <label for="cols" class='active'>Turns</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="cols" v-model.lazy="setting.times" placeholder="times">
+            <label for="cols" class='active'>Times</label>
+          </div>
+          <div class="btn" @click="submitData">
+            Simulate!!
+          </div>
+        </div>
+      </div>
+    </div>
 
     <Monster
       class="monster-forms"
       :field="setting.field"
-      :key="'monster'+reRendering"
       :monster-forms="setting.monsterForms"
     >
     </Monster>
@@ -31,7 +48,7 @@
 </template>
 
 <script>
-import Field from './field'
+import Cells from './cells/cell_modify.vue'
 import Monster from './monster'
 import MyModal from './resultmodal'
 import axios from 'axios'
@@ -39,7 +56,7 @@ import qs from 'qs'
 
 export default {
   components: {
-    Field,
+    Cells,
     Monster,
     MyModal
   },
@@ -217,9 +234,8 @@ export default {
           }
         ],
         turns: "1000",
-        times: "100",
+        times: "10",
       },
-      reRendering: "none",
       modal: false,
       message: "",
       running: true,
@@ -238,8 +254,7 @@ export default {
       if (message != "") {
         alert(message);
         return
-      }
-      
+      }      
       this.openModal();
       var setting = this.formatSetting();
       // axios.get('/api/calcs', {
@@ -264,14 +279,12 @@ export default {
     },
     formatSetting: function() {
       var setting =  new Object();
-      console.log(this.setting)
       // field部分
       setting.field = new Array(this.setting.field.length);
       for(var i = 0; i < setting.field.length; i++) {
         setting.field[i] = Array.from(this.setting.field[i]);
         setting.field[i] = this.setting.field[i].map(ele => Boolean(ele));
       }
-
       // monster部分
       setting.monsters = new Array(this.setting.monsterForms.length);
       for(var i = 0; i < setting.monsters.length; i++) {
@@ -289,7 +302,6 @@ export default {
         monster.order = Number(monster.order);
         monster.weaken = Number(monster.weaken);
       })
-
       setting.times = Number(this.setting.times)
       setting.turns = Number(this.setting.turns)
       return setting
@@ -335,8 +347,6 @@ export default {
       }), (error) => {
         alert("sorry, failed.")
       }
-      this.reRendering = id
-
     }
   },
   watch: {

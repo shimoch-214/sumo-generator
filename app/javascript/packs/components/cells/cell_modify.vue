@@ -30,10 +30,12 @@
 
 <script>
 import Cell from './cell'
+import draggable from 'vuedraggable'
 
 export default {
   components: {
-    Cell
+    Cell,
+    draggable
   },
   props: {
     field: { type: Array, required: true },
@@ -128,6 +130,9 @@ export default {
         this.editedField[i] = Array.from(this.field[i]);
       }
     },
+  },
+  computed: {
+
   },
   updated: function() {
     this.geteditedField();
