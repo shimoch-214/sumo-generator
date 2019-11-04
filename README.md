@@ -1,6 +1,6 @@
 # README
 
-## Sumo Generator
+## [Sumo Generator](http://sumogenerator.ml/)
 
 version
   - Rails: 6.0.0
@@ -57,8 +57,6 @@ Simulateボタン押下でユーザーが指定した任意のセッティング
 Rails環境下ではすでに多くの機能がobject-orientedに設計されているため、自身でClassやModuleの実装を行う機会があまりありませんでした。そこで計算モジュールの実装では「object-orientedなコーディングの習得」、「RubyにおけるClass, Moduleの概念と基本的な取り扱いの理解」をテーマとして取り組みました。
 
 ## 今後の実装の予定
-
-- 汎用的なサンプルのセッティングをいくつか用意し、フォーム入力の負担を減らす。
 - SPAでのユーザ認証を可能にする。
 - 登録済みのユーザに関しては自身のセッティングを保存し、任意に呼び出せるようにする。
 
