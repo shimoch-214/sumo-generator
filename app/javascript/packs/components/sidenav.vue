@@ -25,6 +25,14 @@
       </router-link>
     </li>
     <li>
+      <router-link to="/users/signup">
+        Sign Up
+      </router-link>
+      <router-link to="/users/signin">
+        Sign In
+      </router-link>
+    </li>
+    <li>
       <router-link to="/calculate">
         Calculate
       </router-link>
