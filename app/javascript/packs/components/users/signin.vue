@@ -1,31 +1,26 @@
 <template>
-  <div>
-    <button @click="createUser">hoge</button>
+  <div class="row">
+    <div class="col s8 offset-s2">
+      <h2>Sign In</h2>
+      <UserForm
+        :name="'sign in'"
+        :clickAction="signIn"
+      ></UserForm>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import UserForm from './userform'
 
 export default {
-  data() {
-    return {
-      sample: {
-        email: "example@example.com",
-        password: "password",
-        password_confirmation: "password",
-        // name: "daiya",
-      }
-    }
+  components: {
+    UserForm
   },
   methods: {
-    createUser: function() {
-      axios.post('/api/auth/sign_in', this.sample)
-      .then((response) => {
-        console.log(response)
-      }, (error) => {
-        console.log(error)
-      })
+    signIn () {
+
     }
   }
 }

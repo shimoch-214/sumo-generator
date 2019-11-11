@@ -1,28 +1,28 @@
 <template>
-  <div>
-    <form>
-      <label for="email"></label>
-      <input type="text" v-model="email" id="email" placeholder="email">
-      <label for="password"></label>
-      <input type="text" v-model="password" id="password" placeholder="password">
-      <label for="password_confirmation"></label>
-      <input type="text" v-model="password_confirmation" id="password_confirmation" placeholder="password_confirmation">
-    </form>
+  <div class="row">
+    <div class="col s8 offset-s2">
+      <h2>Sign Up</h2>
+      <UserForm
+        :name="'sign up'"
+        :clickAction="signUp"
+      ></UserForm>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import UserForm from './userform'
 
 export default {
-  data() {
-    return {
-      email: "",
-      password: "",
-      password_confirmation
-    }
+  components: {
+    UserForm
   },
   methods: {
+    signUp (e) {
+      e.preventDefault()
+      axios.post('/api/registrations', )
+    }
   }
 }
 </script>

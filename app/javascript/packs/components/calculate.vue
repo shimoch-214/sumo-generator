@@ -34,8 +34,7 @@
 import Field from './field'
 import Monster from './monster'
 import MyModal from './resultmodal'
-import axios from 'axios'
-import qs from 'qs'
+import axios from '../plugins/vue_axios'
 
 export default {
   components: {
@@ -238,21 +237,9 @@ export default {
       if (message != "") {
         alert(message);
         return
-      }
-      
+      } 
       this.openModal();
       var setting = this.formatSetting();
-      // axios.get('/api/calcs', {
-      //   params: {
-      //     field: JSON.stringify(setting.field),
-      //     monsters: setting.monsters,
-      //     turns: Number(this.setting.turns),
-      //     times: Number(this.setting.times)
-      //   },
-      //   paramsSerializer: function(params) {
-      //     return qs.stringify(params, {arrayFormat: 'brackets'})
-      //   }
-      // }
       axios.post('/api/calcs/calculate', setting)
       .then((response) => {
         this.result = response.data;
@@ -264,7 +251,6 @@ export default {
     },
     formatSetting: function() {
       var setting =  new Object();
-      console.log(this.setting)
       // field部分
       setting.field = new Array(this.setting.field.length);
       for(var i = 0; i < setting.field.length; i++) {
