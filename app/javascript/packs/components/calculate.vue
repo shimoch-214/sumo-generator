@@ -232,6 +232,7 @@ export default {
         this.setting.field[i] = Array.from(field[i]);
       }
     },
+
     submitData: function() {
       var message = this.monsterFormsValidation();
       if (message != "") {
@@ -249,6 +250,7 @@ export default {
         this.running = false;
       });
     },
+
     formatSetting: function() {
       var setting =  new Object();
       // field部分
@@ -280,6 +282,7 @@ export default {
       setting.turns = Number(this.setting.turns)
       return setting
     },
+
     monsterFormsValidation: function() {
       var orderArray = new Array();
       var orderFlag = false;
@@ -307,13 +310,16 @@ export default {
       })
       return message.trim();
     },
+
     openModal() {
       this.modal = true
     },
+
     closeModal() {
       this.modal = false;
       this.running = true;
     },
+
     getSample(id) {
       axios.get(`/api/samples/${id}`, id)
       .then((response) => {
@@ -325,6 +331,7 @@ export default {
 
     }
   },
+
   watch: {
     '$route' (to, from) {
       if (to.params.sampleId) {
@@ -333,6 +340,7 @@ export default {
       }
     }
   },
+  
   created: function() {
     if (this.$route.params.sampleId) {
       var id = this.$route.params.sampleId.match(/\d/)[0]

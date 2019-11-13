@@ -6,30 +6,39 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    auth: {},
-    user: null
+    data: null
   },
-  mutations: {
-    setUser (state, user) {
-      state.user = user
-    },
-    setAuth (state, auth) {
-      state.auth = auth
+
+  getters: {
+    data(state) {
+      return state.data
     }
   },
-  getters: {
-    // user: (state) => state.user,
-    // auth: (state) => state.auth
+
+  mutations: {
+    setUser (state, data) {
+      state.data = data
+    }
   },
+
   actions: {
-    saveSession ({ state }) {
-      localStorage.setItem('session', JSON.stringify(state.auth))
+    signIn ({ commit }, { email, password }) {
+      axios.post('/api/auth/sign_in', { email: email, password: password })
+        .then((response) => {
+          commit('setUser', response.data)
+        }, (error) => {
+          commit('setUser', null)
+        })
     },
-    loadSession ({ commit }) {
-      const session = localStorage.getItem('session')
-      if (session) {
-        commit('setAuth', JSON.parse(session))
-      }
+    signUp ({ commit }, { email, password }) {
+      axios.post('/api/auth', { email, password })
+        .then((response) => {
+          console.log(response)
+          commit('setUser', response.data)
+        }, (error) => {
+          console.log(error)
+          commit('setUser', null)
+        })
     }
   }
 })

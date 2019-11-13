@@ -4,14 +4,13 @@
       <h2>Sign In</h2>
       <UserForm
         :name="'sign in'"
-        :clickAction="signIn"
+        @clickAction="signIn"
       ></UserForm>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import UserForm from './userform'
 
 export default {
@@ -19,8 +18,8 @@ export default {
     UserForm
   },
   methods: {
-    signIn () {
-
+    signIn (data) {
+      this.$store.dispatch('signIn', data)
     }
   }
 }

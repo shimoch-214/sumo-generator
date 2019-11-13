@@ -4,14 +4,13 @@
       <h2>Sign Up</h2>
       <UserForm
         :name="'sign up'"
-        :clickAction="signUp"
+        @clickAction="signUp"
       ></UserForm>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import UserForm from './userform'
 
 export default {
@@ -19,9 +18,8 @@ export default {
     UserForm
   },
   methods: {
-    signUp (e) {
-      e.preventDefault()
-      axios.post('/api/registrations', )
+    signUp (data) {
+      this.$store.dispatch('signUp', data)
     }
   }
 }

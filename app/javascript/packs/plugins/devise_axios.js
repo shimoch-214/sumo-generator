@@ -39,8 +39,8 @@ const instance = axios.create({
   },
 })
 
-instance.interceptors.request.use((confing) => {
-  confing.headers = setHeaders(config.headers)
+instance.interceptors.request.use((config) => {
+  config.headers = setHeaders(config.headers)
   return config
 }, (error) => {
   return Promise.reject(error)
